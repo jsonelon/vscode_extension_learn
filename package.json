@@ -1,0 +1,98 @@
+{
+  "name": "vscode-extension-test",
+  "displayName": "插件安装后的友好显示名称，用于显示在应用市场，支持中文",
+  "description": "描述",
+  "keywords": [
+    "关键字，用于应用市场搜索"
+  ],
+  "version": "0.0.1",
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/username/repo-name.git"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [],
+  "main": "./out/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "my.command1",
+        "title": "选区数字加1"
+      },
+      {
+        "command": "my.command2",
+        "title": "获取用户输入"
+      },
+      {
+        "command": "my.command3",
+        "title": "子菜单,子菜单在ts文件下才会显示"
+      }
+    ],
+    "submenus": [
+      {
+        "id": "my.menulist",
+        "label": "多级菜单组"
+      }
+    ],
+    "menus": {
+      "editor/context": [
+        {
+          "command": "my.command1",
+          "group": "newGrop@1"
+        },
+        {
+          "submenu": "my.menulist",
+          "group": "newGrop@2"
+        }
+      ],
+      "my.menulist": [
+        {
+          "command": "my.command2",
+          "group": "2_workspace"
+        },
+        {
+          "command": "my.command3",
+          "when": "editorLangId == typescript",
+          "group": "2_workspace"
+        }
+      ]
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "pnpm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "pretest": "pnpm run compile && pnpm run lint",
+    "lint": "eslint src --ext ts",
+    "test": "vscode-test",
+    "build": "pnpm vsce package --no-dependencies"
+  },
+  "devDependencies": {
+    "@types/mocha": "^10.0.6",
+    "@types/node": "18.x",
+    "@types/vscode": "^1.85.0",
+    "@typescript-eslint/eslint-plugin": "^6.15.0",
+    "@typescript-eslint/parser": "^6.15.0",
+    "@vscode/test-cli": "^0.0.4",
+    "@vscode/test-electron": "^2.3.8",
+    "@vscode/vsce": "^2.23.0",
+    "eslint": "^8.56.0",
+    "typescript": "^5.3.3"
+  },
+  "json-comments": {
+    "tips": "Please install the JsonComments plugin to enable commenting functionality for JSON files, see: https://github.com/zhangfisher/json_comments_extension",
+    "package.json": {
+      "contributes.menus": "菜单",
+      "contributes.commands": "注册命令",
+      "contributes.submenus": "多级菜单得定义这个",
+      "contributes.menus.editor/context": "编辑区右键显示菜单",
+      "contributes.menus.markdown-image.menulist": "多级菜单id",
+      "contributes.menus.editor/context[0].group": "组名,@后面数字是排序"
+    }
+  }
+}
